@@ -37,25 +37,9 @@ public class Main {
 
     TimeSleep(500);
 
-    /*----Choose Weapon----*/
-    System.out.println(ConsoleColors.BB + "Here are your starting weapon choices, " + playerName
-        + "(Even attack type has 2 attacks: One normal and one special):");
-
-    TimeSleep(250);
-
-    System.out.println(ConsoleColors.CB + "Sword: " + ConsoleColors.C
-        + "Has two types of attack Sword-Spin and Sword-Charge. Spinning does 20 damage. Sword-Charge does 30 damage. The damage value gets decreased from time to time but caps out at a point. There are going to be ways to sharpen your blades.");
-
-    TimeSleep(250);
-
-    System.out.println(ConsoleColors.RB + "Magic " + ConsoleColors.R
-        + "Has two types of attack Fireball and Rock-Shower. Fireball does 17.5 damage. Rock-Shower does 25 damage. The abilities will takes away your more health than the Fist weapon from time to time because you either get hit by a rock or burned by the fireball. There are going to be ways to increase health.");
-
-    TimeSleep(250);
-
-    System.out.println(ConsoleColors.YB + "Fist " + ConsoleColors.Y
-        + "Has two types of attack Uppercut and Ram-Slam. Uppercut does 12.5 damage. Ram-Slam does 35 damage. Takes away your health every time you use Ram-Slam. There are going to be ways to increase health."
-        + ConsoleColors.RESET);
+    /*----Weapon Choices----*/
+    // Lets you choose the weapon
+    weaponChoices(playerName);
 
     TimeSleep(500);
 
@@ -65,8 +49,6 @@ public class Main {
     int playerWeapon = input.nextInt();
 
     Player player = new Player(playerName, fist);
-
-    // player.setPlayerWeapon(magic);
     setChosenWeapon(playerWeapon, player);
 
     System.out.println(ConsoleColors.PB + player + ConsoleColors.RESET);
@@ -85,7 +67,7 @@ public class Main {
     }
   }
 
-  public static void setChosenWeapon(int chosenNum, Player user) {
+  private static void setChosenWeapon(int chosenNum, Player user) {
     if (chosenNum == 0) {
       user.setPlayerWeapon(sword);
 
@@ -99,4 +81,26 @@ public class Main {
       user.setPlayerWeapon(fist);
     }
   }
+
+  private static void weaponChoices(String playerName) {
+    System.out.println(ConsoleColors.BB + "Here are your starting weapon choices, " + playerName
+        + "(Even attack type has 2 attacks: One normal and one special):");
+
+    TimeSleep(250);
+
+    System.out.println(ConsoleColors.CB + "Sword: " + ConsoleColors.C
+        + "Has two types of attack Sword-Spin and Sword-Charge. Spinning does 20 damage. Sword-Charge does 30 damage. The damage value gets decreased from time to time but caps out at a point. There are going to be ways to sharpen your blades.");
+
+    TimeSleep(250);
+
+    System.out.println(ConsoleColors.RB + "Magic: " + ConsoleColors.R
+        + "Has two types of attack Fireball and Rock-Shower. Fireball does 17.5 damage. Rock-Shower does 25 damage. The abilities will takes away your more health than the Fist weapon from time to time because you either get hit by a rock or burned by the fireball. There are going to be ways to increase health.");
+
+    TimeSleep(250);
+
+    System.out.println(ConsoleColors.YB + "Fist: " + ConsoleColors.Y
+        + "Has two types of attack Uppercut and Ram-Slam. Uppercut does 12.5 damage. Ram-Slam does 35 damage. Takes away your health every time you use Ram-Slam. There are going to be ways to increase health."
+        + ConsoleColors.RESET);
+  }
+
 }
