@@ -5,80 +5,82 @@ public class Weapons {
 
   public Weapons(String wName, String[] aMoves, double[] movesDamage) {
     weaponName = wName;
-    attackMoves[0] = aMoves[0];
-    attackMoves[1] = aMoves[1];
-
-    damage[0] = movesDamage[0];
-    damage[1] = movesDamage[1];
+    this.attackMoves = aMoves;
+    this.damage = movesDamage;
   }
 
-  //Returns The name of the Weapon
+  // Returns The name of the Weapon
   public String getWeaponName() {
-    return weaponName;
+    return this.weaponName;
   }
 
-  //Returns all Moves
+  // Returns all Moves
   public String[] getMoves() {
-    return attackMoves;
+    return this.attackMoves;
   }
 
-  //Returns Moves Damage
+  // Returns Moves Damage
   public double[] getMovesDamage() {
-    return damage;
+    return this.damage;
   }
 
-  //Returns First Move Name
+  // Returns First Move Name
   public String getMoveOne() {
-    return attackMoves[0];
+    return this.attackMoves[0];
   }
 
-  //Returns First Move Damage
+  // Returns First Move Damage
   public double getMoveDamageOne() {
-    return damage[0];
+    return this.damage[0];
   }
 
-  //Returns Second Move Name
+  // Returns Second Move Name
   public String getMoveTwo() {
-    return attackMoves[1];
+    return this.attackMoves[1];
   }
 
-  //Returns Second Move Damage
+  // Returns Second Move Damage
   public double getMoveDamageTwo() {
-    return damage[1];
+    return this.damage[1];
   }
 
-  //Sets the Weapon Name
+  // Sets the Weapon Name
   public void setWeaponName(String name) {
     this.weaponName = name;
   }
 
-  //Sets all Moves
+  // Sets all Moves
   public void setMoves(String[] newMoves) {
     this.attackMoves = newMoves;
   }
 
-  //Sets Moves Damage
+  // Sets Moves Damage
   public void setMovesDamage(double[] newMovesDamage) {
     this.damage = newMovesDamage;
   }
 
-  //Sets First Move Name
+  // Sets First Move Name
   public void setMoveOne(String name) {
     this.attackMoves[0] = name;
   }
 
-  //Sets First Move Damage
+  // Sets First Move Damage
   public void setMoveDamageOne(double damage) {
     this.damage[0] = damage;
   }
 
-  //Sets Second Move Name
+  // Sets Second Move Name
   public void setMoveTwo(String name) {
     this.attackMoves[1] = name;
   }
 
-  //Sets Second Move Damage
+  // Sets Second Move Damage
   public void setMoveDamageTwo(double damage) {
     this.damage[1] = damage;
+  }
+
+  public String toString() {
+    return "Name: " + weaponName + "\nType One: " + attackMoves[0] + "\nType One Damage: " + damage[0] + "\nType Two: "
+        + attackMoves[1] + "\nType Two Damage: " + damage[1];
   }
 }
