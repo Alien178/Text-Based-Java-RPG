@@ -16,6 +16,14 @@ public class Player {
     this.playerWeapon.setMovesDamage(newWeapon.getMovesDamage());
   }
 
+  public double getHealth() {
+    return health;
+  }
+
+  public void setHealth(double newHealth) {
+    this.health = newHealth;
+  }
+
   public String toString() {
     return "Your name is " + playerName + ", and your weapon is " + playerWeapon.getWeaponName() + ".";
   }

@@ -18,6 +18,8 @@ public class Main {
   static double[] swordTypesDamage = new double[] { 20, 30 };
   static Weapons sword = new Weapons("Sword", swordTypes, swordTypesDamage);
 
+  //
+
   public static void main(String[] args) {
     Scanner input = new Scanner(System.in);
 
