@@ -1,6 +1,7 @@
 public class Player {
 
   private String playerName = "";
+  private double maxHealth = 100.0;
   private double health = 100.0;
   private int money = 100;
   private Weapons playerWeapon;
@@ -22,6 +23,10 @@ public class Player {
 
   public void setHealth(double newHealth) {
     this.health = newHealth;
+
+    if (health > maxHealth) {
+      this.health = this.maxHealth;
+    }
   }
 
   public String toString() {

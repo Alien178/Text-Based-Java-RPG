@@ -105,4 +105,9 @@ public class Main {
         + ConsoleColors.RESET);
   }
 
+  private static void fight(Player player, Monster monster) {
+    double pHealth = player.getHealth();
+    double mHealth = monster.getHealth();
+
+  }
 }

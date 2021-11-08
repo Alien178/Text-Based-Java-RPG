@@ -5,13 +5,15 @@ public class Monster {
     private String monsterName;
     private String[] monsterMoves;
     private double[] damage;
+    private double health;
     private static int monstersKilled;
     Random rand = new Random();
 
-    public Monster(String mName, String[] mMoves, double[] mDamage) {
+    public Monster(String mName, String[] mMoves, double[] mDamage, double health) {
         this.monsterName = mName;
         this.monsterMoves = mMoves;
         this.damage = mDamage;
+        this.health = health;
     }
 
     public double attack() {
@@ -25,6 +27,14 @@ public class Monster {
         }
 
         return 0.0;
+    }
+
+    public double getHealth() {
+        return health;
+    }
+
+    public void setHealth(double newHealth) {
+        this.health = newHealth;
     }
 
     public int onKilled() {
