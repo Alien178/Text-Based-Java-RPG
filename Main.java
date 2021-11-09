@@ -18,7 +18,7 @@ public class Main {
   static double[] swordTypesDamage = new double[] { 20, 30 };
   static Weapons sword = new Weapons("Sword", swordTypes, swordTypesDamage);
 
-  //
+  // Test Monster Slime
 
   public static void main(String[] args) {
     Scanner input = new Scanner(System.in);
@@ -27,7 +27,7 @@ public class Main {
 
     /*----Start----*/
     System.out.println(ConsoleColors.BBL + "Welcome To Text-Playing!!");
-    System.out.println(ConsoleColors.BL + "A Text based Role-Playing Game.");
+    System.out.println(ConsoleColors.BL + "A Text based Role-Playing Game. The game was first called \"Text-like\"");
     System.out.println(ConsoleColors.RESET + "");
 
     TimeSleep(500);
@@ -36,6 +36,8 @@ public class Main {
     System.out.println("Please enter your name hero:");
     String playerName = input.nextLine();
     System.out.println("");
+
+    Player player = new Player(playerName, fist);
 
     TimeSleep(500);
 
@@ -46,14 +48,24 @@ public class Main {
     TimeSleep(500);
 
     System.out.println("");
-    System.out.println("Choose your starting weapon(Type \"0\" for Sword, \"1\" for Magic, and \"2\" for Fist):");
+    System.out.println(player.getHealth());
+    System.out.println("Choose your starting weapon(Type \"1\" for Sword, \"2\" for Magic, and \"3\" for Fist):");
     System.out.print("Answer: ");
     int playerWeapon = input.nextInt();
-
-    Player player = new Player(playerName, fist);
     setChosenWeapon(playerWeapon, player);
 
     System.out.println(ConsoleColors.PB + player + ConsoleColors.RESET);
+
+    /* Teach how to fight */
+    System.out.println("");
+
+    System.out.print(
+        "You are about to fight your first monster. You are going to have to use your attack moves. Like your weapon, "
+            + player.getWName() + " has ");
+    for (String stats : player.getWeaponsStats()) {
+      System.out.print(stats + ", ");
+    }
+    System.out.print("as it's moves. Choose One to Attack the Monster");
 
     input.close();
   }
@@ -70,13 +82,13 @@ public class Main {
   }
 
   private static void setChosenWeapon(int chosenNum, Player user) {
-    if (chosenNum == 0) {
+    if (chosenNum == 1) {
       user.setPlayerWeapon(sword);
 
-    } else if (chosenNum == 1) {
+    } else if (chosenNum == 2) {
       user.setPlayerWeapon(magic);
 
-    } else if (chosenNum == 2) {
+    } else if (chosenNum == 3) {
       user.setPlayerWeapon(fist);
 
     } else {
@@ -105,7 +117,7 @@ public class Main {
         + ConsoleColors.RESET);
   }
 
-  private static void fight(Player player, Monster monster) {
+  private static void fight(Player player, Monster monster, Scanner input) {
     double pHealth = player.getHealth();
     double mHealth = monster.getHealth();
 

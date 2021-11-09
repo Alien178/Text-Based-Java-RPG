@@ -11,12 +11,14 @@ public class Player {
     this.playerWeapon = new Weapons(pWeapon.getWeaponName(), pWeapon.getMoves(), pWeapon.getMovesDamage());
   }
 
+  /* Helps To set a New Player Weapon */
   public void setPlayerWeapon(Weapons newWeapon) {
     this.playerWeapon.setWeaponName(newWeapon.getWeaponName());
     this.playerWeapon.setMoves(newWeapon.getMoves());
     this.playerWeapon.setMovesDamage(newWeapon.getMovesDamage());
   }
 
+  /* Sets and Gets Health */
   public double getHealth() {
     return health;
   }
@@ -27,6 +29,39 @@ public class Player {
     if (health > maxHealth) {
       this.health = this.maxHealth;
     }
+  }
+
+  public void addHealth(double x) {
+    this.health += x;
+  }
+
+  public void subtractHealth(double x) {
+    this.health -= x;
+  }
+
+  /* Sets and Gets Money */
+  public double getMoney() {
+    return this.money;
+  }
+
+  public void setMoney(int newMoney) {
+    this.money = newMoney;
+  }
+
+  public void addMoney(int x) {
+    this.money += x;
+  }
+
+  public void subtractHealth(int x) {
+    this.money -= x;
+  }
+
+  public String[] getWeaponsStats() {
+    return playerWeapon.getMoves();
+  }
+
+  public String getWName() {
+    return playerWeapon.getWeaponName();
   }
 
   public String toString() {
