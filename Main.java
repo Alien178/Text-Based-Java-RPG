@@ -5,23 +5,28 @@ public class Main {
 
   // Fist Weapon
   static String[] fistTypes = new String[] { "Uppercut", "Ram-Slam" };
-  static double[] fistTypesDamage = new double[] { 12.5, 35 };
+  static double[] fistTypesDamage = new double[] { 12, 20 };
   static Weapons fist = new Weapons("Fist", fistTypes, fistTypesDamage);
 
   // Magic Weapon
   static String[] magicTypes = new String[] { "Fireball", "Rock-Shower" };
-  static double[] magicTypesDamage = new double[] { 17.5, 25 };
+  static double[] magicTypesDamage = new double[] { 12, 20 };
   static Weapons magic = new Weapons("Magic", magicTypes, magicTypesDamage);
 
   // Sword Weapon
   static String[] swordTypes = new String[] { "Sword-Spin", "Sword-Charge" };
-  static double[] swordTypesDamage = new double[] { 20, 30 };
+  static double[] swordTypesDamage = new double[] { 12, 20 };
   static Weapons sword = new Weapons("Sword", swordTypes, swordTypesDamage);
 
   // Test Monster Slime
 
   public static void main(String[] args) {
     Scanner input = new Scanner(System.in);
+
+    // All Monster shall rise here
+    String[] teachMTypes = new String[] { "Uppercut", "Ram-Slam" };
+    double[] teachMTypesDamage = new double[] { 12.5, 35 };
+    Monster teachMonster = new Monster("Random Rock", teachMTypes, teachMTypesDamage, 100.0, 10);
 
     System.out.print(ConsoleColors.CLEAR);
 
@@ -48,11 +53,18 @@ public class Main {
     TimeSleep(500);
 
     System.out.println("");
-    System.out.println(player.getHealth());
-    System.out.println("Choose your starting weapon(Type \"1\" for Sword, \"2\" for Magic, and \"3\" for Fist):");
+    System.out.println("You have " + player.getMoney() + " Chips, which is the money for this game.");
+    System.out.println(
+        "Choose your starting weapon(Type \"1\" for Sword, \"2\" for Magic, \"3\" for Fist, \"4\" for More Info):");
     System.out.print("Answer: ");
-    int playerWeapon = input.nextInt();
-    setChosenWeapon(playerWeapon, player);
+    int playerWeaponChoice = input.nextInt();
+
+    if (playerWeaponChoice == 4) {
+
+    } else {
+
+      setChosenWeapon(playerWeaponChoice, player);
+    }
 
     System.out.println(ConsoleColors.PB + player + ConsoleColors.RESET);
 
@@ -65,7 +77,8 @@ public class Main {
     for (String stats : player.getWeaponsStats()) {
       System.out.print(stats + ", ");
     }
-    System.out.print("as it's moves. Choose One to Attack the Monster");
+    System.out.print("as it's moves. Choose One to Move to attack the Monster");
+    fight(player, teachMonster, input);
 
     input.close();
   }
