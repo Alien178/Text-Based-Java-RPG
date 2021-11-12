@@ -52,16 +52,20 @@ public class Player {
     this.money += x;
   }
 
-  public void subtractHealth(int x) {
+  public void subtractMoney(int x) {
     this.money -= x;
   }
 
-  public String[] getWeaponsStats() {
+  public String[] getWeaponMoveNames() {
     return playerWeapon.getMoves();
   }
 
   public String getWName() {
     return playerWeapon.getWeaponName();
+  }
+
+  public double[] getWeaponMoveDamage() {
+    return playerWeapon.getMovesDamage();
   }
 
   public String toString() {

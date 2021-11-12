@@ -74,7 +74,7 @@ public class Main {
     System.out.print(
         "You are about to fight your first monster. You are going to have to use your attack moves. Like your weapon, "
             + player.getWName() + " has ");
-    for (String stats : player.getWeaponsStats()) {
+    for (String stats : player.getWeaponMoveNames()) {
       System.out.print(stats + ", ");
     }
     System.out.print("as it's moves. Choose One to Move to attack the Monster");
@@ -131,8 +131,47 @@ public class Main {
   }
 
   private static void fight(Player player, Monster monster, Scanner input) {
-    double pHealth = player.getHealth();
-    double mHealth = monster.getHealth();
+    String mName = monster.getName();
 
+    while (true) {
+      System.out.println("Your Health is " + player.getHealth());
+      System.out.println("It is your turn to attack " + mName + ".");
+      System.out.println("Choose one to move(Type 1 for " + player.getWeaponMoveNames()[0] + ", 2 for "
+          + player.getWeaponMoveNames()[1] + ").");
+
+      int userChoice = input.nextInt();
+
+      if (userChoice == 1) {
+        System.out.println("You did " + player.getWeaponMoveDamage()[0] + " damage to " + mName + ".\n");
+        monster.subtractHealth(player.getWeaponMoveDamage()[0]);
+      } else if (userChoice == 2) {
+        System.out.println("You did " + player.getWeaponMoveDamage()[1] + " damage to " + mName + ".\n");
+        monster.subtractHealth(player.getWeaponMoveDamage()[1]);
+      } else {
+        System.out.println("You did 0 damage to " + mName + ".");
+      }
+
+      System.out.println("");
+      System.out.println("The " + mName + "'s health is " + monster.getHealth() + ".");
+      System.out.println("");
+
+      if (monster.getHealth() <= 0) {
+        player.addMoney(monster.onKilled());
+        System.out.println("You have won this fight. Your balance is now " + player.getMoney() + ".\n");
+        break;
+      }
+
+      System.out.println("It is now the " + mName + " turn to attack you.");
+      player.subtractHealth(monster.attack());
+
+      if (player.getHealth() <= 0) {
+        System.out.println("You have lost this fight to " + mName + ". You are dead. \n---GAME OVER---");
+        break;
+      }
+    }
+
+    if (player.getHealth() <= 0) {
+      System.exit(0);
+    }
   }
 }
