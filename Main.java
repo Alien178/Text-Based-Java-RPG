@@ -5,18 +5,18 @@ public class Main {
 
   // Fist Weapon
   static String[] fistTypes = new String[] { "Uppercut", "Ram-Slam" };
-  static double[] fistTypesDamage = new double[] { 12, 20 };
-  static Weapons fist = new Weapons("Fist", fistTypes, fistTypesDamage);
+  static double[] fistTypesDamage = new double[] { 12.5, 35 };
+  static Weapons fist = new Weapons("Fist", fistTypes, fistTypesDamage, 0);
 
   // Magic Weapon
   static String[] magicTypes = new String[] { "Fireball", "Rock-Shower" };
-  static double[] magicTypesDamage = new double[] { 12, 20 };
-  static Weapons magic = new Weapons("Magic", magicTypes, magicTypesDamage);
+  static double[] magicTypesDamage = new double[] { 17.5, 25 };
+  static Weapons magic = new Weapons("Magic", magicTypes, magicTypesDamage, 25);
 
   // Sword Weapon
   static String[] swordTypes = new String[] { "Sword-Spin", "Sword-Charge" };
-  static double[] swordTypesDamage = new double[] { 12, 20 };
-  static Weapons sword = new Weapons("Sword", swordTypes, swordTypesDamage);
+  static double[] swordTypesDamage = new double[] { 20, 30 };
+  static Weapons sword = new Weapons("Sword", swordTypes, swordTypesDamage, 30);
 
   // Test Monster Slime
 
@@ -25,7 +25,7 @@ public class Main {
 
     // All Monster shall rise here
     String[] teachMTypes = new String[] { "Uppercut", "Ram-Slam" };
-    double[] teachMTypesDamage = new double[] { 12.5, 35 };
+    double[] teachMTypesDamage = new double[] { 5, 10 };
     Monster teachMonster = new Monster("Random Rock", teachMTypes, teachMTypesDamage, 100.0, 10);
 
     System.out.print(ConsoleColors.CLEAR);
@@ -52,21 +52,24 @@ public class Main {
 
     TimeSleep(500);
 
-    System.out.println("");
-    System.out.println("You have " + player.getMoney() + " Chips, which is the money for this game.");
-    System.out.println(
-        "Choose your starting weapon(Type \"1\" for Sword, \"2\" for Magic, \"3\" for Fist, \"4\" for More Info):");
-    System.out.print("Answer: ");
-    int playerWeaponChoice = input.nextInt();
+    while (true) {
+      System.out.println("You have " + player.getMoney() + " Chips, which is the money for this game.");
+      System.out.println(
+          "Choose your starting weapon(Type \"1\" for Sword, \"2\" for Magic, \"3\" for Fist, \"4\" for More Info):");
+      System.out.print("Answer: ");
+      int playerWeaponChoice = input.nextInt();
 
-    if (playerWeaponChoice == 4) {
-
-    } else {
-
-      setChosenWeapon(playerWeaponChoice, player);
+      if (playerWeaponChoice == 4) {
+        weaponChoices(playerName);
+      } else {
+        setChosenWeapon(playerWeaponChoice, player);
+        break;
+      }
     }
 
-    System.out.println(ConsoleColors.PB + player + ConsoleColors.RESET);
+    System.out.println(player + ConsoleColors.RESET);
+
+    TimeSleep(2000);
 
     /* Teach how to fight */
     System.out.println("");
@@ -77,7 +80,7 @@ public class Main {
     for (String stats : player.getWeaponMoveNames()) {
       System.out.print(stats + ", ");
     }
-    System.out.print("as it's moves. Choose One to Move to attack the Monster");
+    System.out.print("as it's moves. Choose One to Move to attack the Monster. ");
     fight(player, teachMonster, input);
 
     input.close();
@@ -97,9 +100,11 @@ public class Main {
   private static void setChosenWeapon(int chosenNum, Player user) {
     if (chosenNum == 1) {
       user.setPlayerWeapon(sword);
+      user.subtractMoney(30);
 
     } else if (chosenNum == 2) {
       user.setPlayerWeapon(magic);
+      user.subtractMoney(25);
 
     } else if (chosenNum == 3) {
       user.setPlayerWeapon(fist);
@@ -110,28 +115,60 @@ public class Main {
   }
 
   private static void weaponChoices(String playerName) {
-    System.out.println(ConsoleColors.BB + "Here are your starting weapon choices, " + playerName
+    System.out.println("");
+    System.out.println(ConsoleColors.BB + "Here are your weapon choices, " + playerName
         + "(Even attack type has 2 attacks: One normal and one special):");
 
     TimeSleep(250);
 
-    System.out.println(ConsoleColors.CB + "Sword: " + ConsoleColors.C
-        + "Has two types of attack Sword-Spin and Sword-Charge. Spinning does 20 damage. Sword-Charge does 30 damage. The damage value gets decreased from time to time but caps out at a point. There are going to be ways to sharpen your blades.");
+    // System.out.println(ConsoleColors.CB + "Sword: " + ConsoleColors.YB + "Cost:
+    // 30 Chips. " + ConsoleColors.C
+    // + "\nHas two types of attack Sword-Spin and Sword-Charge. \nSword-Spin: 20
+    // damage \nSword-Charge: 30 damage \nThe damage value gets decreased from time
+    // to time but caps out at a point. There are going to be ways to sharpen your
+    // blades.\n");
+
+    System.out.println(ConsoleColors.CB + "-----Sword-----");
+    System.out.println(ConsoleColors.YB + "Cost: " + ConsoleColors.Y + sword.getWeaponCost());
+    System.out.println(ConsoleColors.RB + sword.getMoveOne() + ": " + ConsoleColors.R + sword.getMoveDamageOne());
+    System.out.println(ConsoleColors.RB + sword.getMoveTwo() + ": " + ConsoleColors.R + sword.getMoveDamageTwo());
+    System.out.println(ConsoleColors.GB + "Facts: " + ConsoleColors.G
+        + "The damage value gets decreased from time to time but caps out at a point. There are going to be ways to sharpen your blades.\n");
 
     TimeSleep(250);
 
-    System.out.println(ConsoleColors.RB + "Magic: " + ConsoleColors.R
-        + "Has two types of attack Fireball and Rock-Shower. Fireball does 17.5 damage. Rock-Shower does 25 damage. The abilities will takes away your more health than the Fist weapon from time to time because you either get hit by a rock or burned by the fireball. There are going to be ways to increase health.");
+    // System.out.println(ConsoleColors.RB + "Magic: " + ConsoleColors.R + "Has two
+    // types of attack Fireball and Rock-Shower. Fireball does 17.5 damage.
+    // Rock-Shower does 25 damage. The abilities will takes away your more health
+    // than the Fist weapon from time to time because you either get hit by a rock
+    // or burned by the fireball. There are going to be ways to increase health.");
+
+    System.out.println(ConsoleColors.CB + "-----Magic-----");
+    System.out.println(ConsoleColors.YB + "Cost: " + ConsoleColors.Y + magic.getWeaponCost());
+    System.out.println(ConsoleColors.RB + magic.getMoveOne() + ": " + ConsoleColors.R + magic.getMoveDamageOne());
+    System.out.println(ConsoleColors.RB + magic.getMoveTwo() + ": " + ConsoleColors.R + magic.getMoveDamageTwo());
+    System.out.println(ConsoleColors.GB + "Facts: " + ConsoleColors.G
+        + "The abilities will takes away your more health than the Fist weapon from time to time because you either get hit by a rock or burned by the fireball. There are going to be ways to increase health.\n");
 
     TimeSleep(250);
 
-    System.out.println(ConsoleColors.YB + "Fist: " + ConsoleColors.Y
-        + "Has two types of attack Uppercut and Ram-Slam. Uppercut does 12.5 damage. Ram-Slam does 35 damage. Takes away your health every time you use Ram-Slam. There are going to be ways to increase health."
+    // System.out.println(ConsoleColors.GB + "Fist: " + ConsoleColors.G + "Has two
+    // types of attack Uppercut and Ram-Slam. Uppercut does 12.5 damage. Ram-Slam
+    // does 35 damage. Takes away your health every time you use Ram-Slam. There are
+    // going to be ways to increase health." + ConsoleColors.RESET);
+
+    System.out.println(ConsoleColors.CB + "-----Fist-----");
+    System.out.println(ConsoleColors.YB + "Cost: " + ConsoleColors.Y + fist.getWeaponCost());
+    System.out.println(ConsoleColors.RB + fist.getMoveOne() + ": " + ConsoleColors.R + fist.getMoveDamageOne());
+    System.out.println(ConsoleColors.RB + fist.getMoveTwo() + ": " + ConsoleColors.R + fist.getMoveDamageTwo());
+    System.out.println(ConsoleColors.GB + "Facts: " + ConsoleColors.G
+        + "Takes away your health every time you use Ram-Slam. There are going to be ways to increase health.\n"
         + ConsoleColors.RESET);
   }
 
   private static void fight(Player player, Monster monster, Scanner input) {
     String mName = monster.getName();
+    double pWDamage = 102.0;
 
     while (true) {
       System.out.println("Your Health is " + player.getHealth());
@@ -143,10 +180,12 @@ public class Main {
 
       if (userChoice == 1) {
         System.out.println("You did " + player.getWeaponMoveDamage()[0] + " damage to " + mName + ".\n");
-        monster.subtractHealth(player.getWeaponMoveDamage()[0]);
+        pWDamage = player.getWeaponMoveDamage()[0];
+        monster.subtractHealth(pWDamage);
       } else if (userChoice == 2) {
         System.out.println("You did " + player.getWeaponMoveDamage()[1] + " damage to " + mName + ".\n");
-        monster.subtractHealth(player.getWeaponMoveDamage()[1]);
+        pWDamage = player.getWeaponMoveDamage()[1];
+        monster.subtractHealth(pWDamage);
       } else {
         System.out.println("You did 0 damage to " + mName + ".");
       }
@@ -168,6 +207,7 @@ public class Main {
         System.out.println("You have lost this fight to " + mName + ". You are dead. \n---GAME OVER---");
         break;
       }
+
     }
 
     if (player.getHealth() <= 0) {

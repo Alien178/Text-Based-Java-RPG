@@ -8,7 +8,8 @@ public class Player {
 
   public Player(String pName, Weapons pWeapon) {
     this.playerName = pName;
-    this.playerWeapon = new Weapons(pWeapon.getWeaponName(), pWeapon.getMoves(), pWeapon.getMovesDamage());
+    this.playerWeapon = new Weapons(pWeapon.getWeaponName(), pWeapon.getMoves(), pWeapon.getMovesDamage(),
+        pWeapon.getWeaponCost());
   }
 
   /* Helps To set a New Player Weapon */
@@ -69,6 +70,7 @@ public class Player {
   }
 
   public String toString() {
-    return "Your name is " + playerName + ", and your weapon is " + playerWeapon.getWeaponName() + ".";
+    return "\n" + ConsoleColors.BBL + "Player: " + ConsoleColors.BL + playerName + ConsoleColors.RB + "\nWeapon: "
+        + ConsoleColors.R + playerWeapon.getWeaponName() + ConsoleColors.YB + "\nBank: " + ConsoleColors.Y + money;
   }
 }

@@ -1,17 +1,19 @@
 public class Weapons {
-  private String weaponName;
+  private String name;
   private String[] attackMoves;
   private double[] damage;
+  private int cost;
 
-  public Weapons(String wName, String[] aMoves, double[] movesDamage) {
-    weaponName = wName;
+  public Weapons(String wName, String[] aMoves, double[] movesDamage, int wCost) {
+    this.name = wName;
     this.attackMoves = aMoves;
     this.damage = movesDamage;
+    this.cost = wCost;
   }
 
   // Returns The name of the Weapon
   public String getWeaponName() {
-    return this.weaponName;
+    return this.name;
   }
 
   // Returns all Moves
@@ -46,7 +48,7 @@ public class Weapons {
 
   // Sets the Weapon Name
   public void setWeaponName(String name) {
-    this.weaponName = name;
+    this.name = name;
   }
 
   // Sets all Moves
@@ -79,8 +81,12 @@ public class Weapons {
     this.damage[1] = damage;
   }
 
+  public int getWeaponCost() {
+    return this.cost;
+  }
+
   public String toString() {
-    return "Name: " + weaponName + "\nType One: " + attackMoves[0] + "\nType One Damage: " + damage[0] + "\nType Two: "
+    return "Name: " + name + "\nType One: " + attackMoves[0] + "\nType One Damage: " + damage[0] + "\nType Two: "
         + attackMoves[1] + "\nType Two Damage: " + damage[1];
   }
 }
