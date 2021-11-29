@@ -6,6 +6,7 @@ public class Monster {
     private String[] monsterMoves;
     private double[] damage;
     private double monsterHealth;
+    private double monsterMaxHealth;
     private static int monstersKilled;
     private int killBenefits;
 
@@ -26,7 +27,7 @@ public class Monster {
 
     /* Monster's Attack Function */
     public double attack() {
-        int maxInt = 5;
+        int maxInt = 4;
         int randAttack = rand.nextInt(maxInt);
 
         if (randAttack == 0) {
@@ -54,6 +55,10 @@ public class Monster {
     /* Adds Health */
     public void addHealth(double x) {
         this.monsterHealth += x;
+
+        if (this.monsterHealth > this.monsterMaxHealth) {
+            this.monsterHealth = this.monsterMaxHealth;
+        }
     }
 
     /* Subtracts Health */

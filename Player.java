@@ -70,7 +70,7 @@ public class Player {
   }
 
   public String toString() {
-    return "\n" + ConsoleColors.BBL + "Player: " + ConsoleColors.BL + playerName + ConsoleColors.RB + "\nWeapon: "
-        + ConsoleColors.R + playerWeapon.getWeaponName() + ConsoleColors.YB + "\nBank: " + ConsoleColors.Y + money;
+    return "\n" + ConsoleColors.BBL + "Player: " + ConsoleColors.BL + playerName + ConsoleColors.CB + "\nWeapon: "
+        + ConsoleColors.C + playerWeapon.getWeaponName() + ConsoleColors.YB + "\nBank: " + ConsoleColors.Y + money;
   }
 }

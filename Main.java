@@ -80,7 +80,7 @@ public class Main {
     for (String stats : player.getWeaponMoveNames()) {
       System.out.print(stats + ", ");
     }
-    System.out.print("as it's moves. Choose One to Move to attack the Monster. ");
+    System.out.println("as it's moves. Choose One to Move to attack the Monster. ");
     fight(player, teachMonster, input);
 
     input.close();
@@ -168,41 +168,82 @@ public class Main {
 
   private static void fight(Player player, Monster monster, Scanner input) {
     String mName = monster.getName();
+    double mAttack;
     double pWDamage = 102.0;
 
     while (true) {
-      System.out.println("Your Health is " + player.getHealth());
-      System.out.println("It is your turn to attack " + mName + ".");
-      System.out.println("Choose one to move(Type 1 for " + player.getWeaponMoveNames()[0] + ", 2 for "
-          + player.getWeaponMoveNames()[1] + ").");
+      // Prints Player's health
+      System.out.println(ConsoleColors.RB + "\n" + "Your Health is " + player.getHealth());
+
+      // Prints the turn
+      System.out.println(ConsoleColors.GB + "\nIt is your turn to attack " + mName + ".");
+
+      // Prints the Player's attacks
+      System.out.println(ConsoleColors.PB + "\nChoose one to move(Type 1 for " + player.getWeaponMoveNames()[0]
+          + ", 2 for " + player.getWeaponMoveNames()[1] + ")." + ConsoleColors.P);
 
       int userChoice = input.nextInt();
 
+      // Player's choice of attack
       if (userChoice == 1) {
         System.out.println("You did " + player.getWeaponMoveDamage()[0] + " damage to " + mName + ".\n");
         pWDamage = player.getWeaponMoveDamage()[0];
         monster.subtractHealth(pWDamage);
+
       } else if (userChoice == 2) {
         System.out.println("You did " + player.getWeaponMoveDamage()[1] + " damage to " + mName + ".\n");
         pWDamage = player.getWeaponMoveDamage()[1];
         monster.subtractHealth(pWDamage);
+
       } else {
         System.out.println("You did 0 damage to " + mName + ".");
+
       }
 
       System.out.println("");
-      System.out.println("The " + mName + "'s health is " + monster.getHealth() + ".");
+
+      // Sets the health 0.0 if the health goes to negative numbers.
+      if (monster.getHealth() < 0) {
+        monster.setHealth(0.0);
+      }
+
+      // Prints the monster's health
+      System.out
+          .println(ConsoleColors.RB + "The " + mName + "'s health is " + monster.getHealth() + "." + ConsoleColors.PB);
       System.out.println("");
 
+      // Checks If the monster's health is 0 and if it is then ends the while loop and
+      // gives the player feedback.
       if (monster.getHealth() <= 0) {
         player.addMoney(monster.onKilled());
-        System.out.println("You have won this fight. Your balance is now " + player.getMoney() + ".\n");
+        System.out
+            .println(ConsoleColors.CB + "You have won this fight. Your balance is now " + player.getMoney() + ".\n");
         break;
       }
 
-      System.out.println("It is now the " + mName + " turn to attack you.");
-      player.subtractHealth(monster.attack());
+      // Prints the turn
+      System.out.println("It is now the " + mName + " turn to attack you." + ConsoleColors.P);
 
+      // Runs the attack function in the monster class.
+      mAttack = monster.attack();
+
+      /*
+       * If the value returned by the attack function is 0.17845 then it prints the
+       * monster healed else the monster attack the player.
+       */
+      if (mAttack == 0.17845) {
+        System.out.println("The monster healed it self.");
+
+      } else if (mAttack == 0) {
+        System.out.println("You blocked the monster's attack.");
+
+      } else {
+        player.subtractHealth(monster.attack());
+
+      }
+
+      // Checks If the Player's health is 0 and if it is then ends the while loop and
+      // gives the player feedback.
       if (player.getHealth() <= 0) {
         System.out.println("You have lost this fight to " + mName + ". You are dead. \n---GAME OVER---");
         break;
@@ -210,6 +251,7 @@ public class Main {
 
     }
 
+    // Exits the console
     if (player.getHealth() <= 0) {
       System.exit(0);
     }
