@@ -37,7 +37,7 @@ public class Monster {
         } else if (randAttack == 2) {
             return 0.0;
         } else {
-            addHealth(rand.nextInt(74));
+            addHealth(50);
             return 0.17845;
         }
     }

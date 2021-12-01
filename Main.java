@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 /* import java.util.Random; found at https://www.educative.io/edpresso/how-to-generate-random-numbers-in-java */
 
@@ -17,6 +18,8 @@ public class Main {
   static String[] swordTypes = new String[] { "Sword-Spin", "Sword-Charge" };
   static double[] swordTypesDamage = new double[] { 20, 30 };
   static Weapons sword = new Weapons("Sword", swordTypes, swordTypesDamage, 30);
+
+  static ArrayList<Object> playerHistory = new ArrayList<Object>();
 
   // Test Monster Slime
 
@@ -41,6 +44,8 @@ public class Main {
     System.out.println("Please enter your name hero:");
     String playerName = input.nextLine();
     System.out.println("");
+
+    playerHistory.add(playerName);
 
     Player player = new Player(playerName, fist);
 
@@ -80,8 +85,30 @@ public class Main {
     for (String stats : player.getWeaponMoveNames()) {
       System.out.print(stats + ", ");
     }
+
     System.out.println("as it's moves. Choose One to Move to attack the Monster. ");
     fight(player, teachMonster, input);
+
+    System.out.println("You are now about to enter Dungeon.");
+    System.out.println("You see two doors");
+    System.out.println("The First Door is made of Gold." + "The Second Door is made of Bronze.");
+    System.out.println("You hear terrifying voice from both doors. Which one will you choose?");
+
+    System.out.println("");
+
+    System.out.println("Type 1 for Golden Door or 2 for Bronze Door or 3 to exit the game.");
+
+    int playerChoice = input.nextInt();
+
+    if (playerChoice == 1) {
+      playerHistory.add("Golden Door");
+
+    } else if (playerChoice == 2) {
+      playerHistory.add("Bronze Door");
+
+    } else {
+      System.exit(0);
+    }
 
     input.close();
   }
@@ -97,23 +124,29 @@ public class Main {
     }
   }
 
+  // Sets the Weapon and Subtracts Money
   private static void setChosenWeapon(int chosenNum, Player user) {
     if (chosenNum == 1) {
       user.setPlayerWeapon(sword);
       user.subtractMoney(30);
+      playerHistory.add(sword);
 
     } else if (chosenNum == 2) {
       user.setPlayerWeapon(magic);
       user.subtractMoney(25);
+      playerHistory.add(magic);
 
     } else if (chosenNum == 3) {
       user.setPlayerWeapon(fist);
+      playerHistory.add(fist);
 
     } else {
       user.setPlayerWeapon(fist);
+      playerHistory.add(fist);
     }
   }
 
+  // Weapons Choices
   private static void weaponChoices(String playerName) {
     System.out.println("");
     System.out.println(ConsoleColors.BB + "Here are your weapon choices, " + playerName
@@ -166,6 +199,7 @@ public class Main {
         + ConsoleColors.RESET);
   }
 
+  // Fight Scene between Player and the Monster
   private static void fight(Player player, Monster monster, Scanner input) {
     String mName = monster.getName();
     double mAttack;
@@ -232,10 +266,10 @@ public class Main {
        * monster healed else the monster attack the player.
        */
       if (mAttack == 0.17845) {
-        System.out.println("The monster healed it self.");
+        System.out.println(mName + " healed it self.");
 
       } else if (mAttack == 0) {
-        System.out.println("You blocked the monster's attack.");
+        System.out.println("You blocked the " + mName + "'s attack.");
 
       } else {
         player.subtractHealth(monster.attack());
