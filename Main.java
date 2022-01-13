@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-/* import java.util.Random; found at https://www.educative.io/edpresso/how-to-generate-random-numbers-in-java */
+import java.util.Random;
 
 public class Main {
 
@@ -20,6 +20,7 @@ public class Main {
   static Weapons sword = new Weapons("Sword", swordTypes, swordTypesDamage, 30);
 
   static ArrayList<Object> playerHistory = new ArrayList<Object>();
+  static Random rand = new Random();
 
   // Test Monster Slime
 
@@ -89,9 +90,18 @@ public class Main {
     System.out.println("as it's moves. Choose One to Move to attack the Monster. ");
     fight(player, teachMonster, input);
 
-    System.out.println("You are now about to enter Dungeon.");
+    chooseRoutes(player, teachMonster, teachMonster, input);
+
+    input.close();
+  }
+
+  public static void chooseRoutes(Player player, Monster mOne, Monster mTwo, Scanner input) {
+
+    TimeSleep(1000);
     System.out.println("You see two doors");
+    TimeSleep(1000);
     System.out.println("The First Door is made of Gold." + "The Second Door is made of Bronze.");
+    TimeSleep(1000);
     System.out.println("You hear terrifying voice from both doors. Which one will you choose?");
 
     System.out.println("");
@@ -103,14 +113,37 @@ public class Main {
     if (playerChoice == 1) {
       playerHistory.add("Golden Door");
 
+      System.out.println("The Door Opens...");
+      System.out.println("You enter the room and a monster jumps out at you.");
+      System.out.println("You see that its a " + mOne.getName() + " and you get ready to fight.");
+      playerHistory.add("Fighting " + mOne.getName());
+
+      fight(player, mOne, input);
+
     } else if (playerChoice == 2) {
       playerHistory.add("Bronze Door");
+
+      int random = rand.nextInt(15);
+
+      if (random == 9) {
+        System.out.println("The Door Opens...");
+        System.out.println("You see a msyterious shop and you approach it with caution.");
+        System.out.println("There is a shopkeeper, which looks like a turtle.");
+        System.out.println("You approach the shopkeeper");
+        System.out.println("The shopkeeper says: \"Welcome to Weapon Switch...\" ");
+        System.out.println("You can switch you weapons here.");
+      } else {
+        System.out.println("The Door Opens...");
+        System.out.println("You enter the room and a monster jumps out at you.");
+        System.out.println("You see that its a " + mTwo.getName() + " and you get ready to fight.");
+        playerHistory.add("Fighting " + mTwo.getName());
+
+        fight(player, mTwo, input);
+      }
 
     } else {
       System.exit(0);
     }
-
-    input.close();
   }
 
   // This method makes the currently running thread to stop for x amount of time.
@@ -150,7 +183,7 @@ public class Main {
   private static void weaponChoices(String playerName) {
     System.out.println("");
     System.out.println(ConsoleColors.BB + "Here are your weapon choices, " + playerName
-        + "(Even attack type has 2 attacks: One normal and one special):");
+        + "(Every weapon has 2 attacks: One normal and one special):");
 
     TimeSleep(250);
 
