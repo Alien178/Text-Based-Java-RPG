@@ -12,6 +12,14 @@ public class Player {
         pWeapon.getWeaponCost());
   }
 
+  public String getName() {
+    return this.playerName;
+  }
+
+  public void setName(String newName) {
+    this.playerName = newName;
+  }
+
   /* Helps To set a New Player Weapon */
   public void setPlayerWeapon(Weapons newWeapon) {
     this.playerWeapon.setWeaponName(newWeapon.getWeaponName());

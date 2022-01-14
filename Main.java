@@ -28,9 +28,25 @@ public class Main {
     Scanner input = new Scanner(System.in);
 
     // All Monster shall rise here
-    String[] teachMTypes = new String[] { "Uppercut", "Ram-Slam" };
+    String[] teachMTypes = new String[] { "Rock Punch", "Rock-Slam" };
     double[] teachMTypesDamage = new double[] { 5, 10 };
     Monster teachMonster = new Monster("Random Rock", teachMTypes, teachMTypesDamage, 100.0, 10);
+
+    String[] goblinTypes = new String[] { "Goblin Punch", "Goblin Throw" };
+    double[] goblinTypesDamage = new double[] { 7.5, 12.5 };
+    Monster goblin = new Monster("Goblin", goblinTypes, goblinTypesDamage, 100.0, 20);
+
+    String[] slimeTypes = new String[] { "Slime Swallow", "Slime Mega-Pound" };
+    double[] slimeTypesDamage = new double[] { 6, 10 };
+    Monster slime = new Monster("Slime", slimeTypes, slimeTypesDamage, 100.0, 20);
+
+    String[] ninjaTypes = new String[] { "Ninja Star", "Super Ninja" };
+    double[] ninjaTypesDamage = new double[] { 10, 20 };
+    Monster ninja = new Monster("Ninja", ninjaTypes, ninjaTypesDamage, 200.0, 50);
+
+    String[] sageTypes = new String[] { "Sage Punch", "Super Sage" };
+    double[] sageTypesDamage = new double[] { 12.5, 25 };
+    Monster sage = new Monster("Sage", sageTypes, sageTypesDamage, 150.0, 35);
 
     System.out.print(ConsoleColors.CLEAR);
 
@@ -54,7 +70,7 @@ public class Main {
 
     /*----Weapon Choices----*/
     // Lets you choose the weapon
-    weaponChoices(playerName);
+    weaponChoices(player);
 
     TimeSleep(500);
 
@@ -66,7 +82,7 @@ public class Main {
       int playerWeaponChoice = input.nextInt();
 
       if (playerWeaponChoice == 4) {
-        weaponChoices(playerName);
+        weaponChoices(player);
       } else {
         setChosenWeapon(playerWeaponChoice, player);
         break;
@@ -90,7 +106,17 @@ public class Main {
     System.out.println("as it's moves. Choose One to Move to attack the Monster. ");
     fight(player, teachMonster, input);
 
-    chooseRoutes(player, teachMonster, teachMonster, input);
+    teachMonster.setHealth(100);
+
+    chooseRoutes(player, goblin, slime, input);
+
+    chooseRoutes(player, ninja, sage, input);
+
+    chooseRoutes(player, sage, slime, input);
+
+    chooseRoutes(player, slime, ninja, input);
+
+    System.out.println("You have beaten the game. Congrats!!! \nTHE END!!!");
 
     input.close();
   }
@@ -132,6 +158,33 @@ public class Main {
         System.out.println("You approach the shopkeeper");
         System.out.println("The shopkeeper says: \"Welcome to Weapon Switch...\" ");
         System.out.println("You can switch you weapons here.");
+        System.out.println("Do you want to switch weapons? (1 for Yes or 2 for No)");
+
+        while (true) {
+          playerChoice = input.nextInt();
+
+          if (playerChoice == 1) {
+            weaponChoices(player);
+
+            playerChoice = input.nextInt();
+
+            setChosenWeapon(playerChoice, player);
+
+          } else if (playerChoice == 2) {
+            playerHistory.add("Golden Door");
+
+            System.out.println("You enter the other door.");
+            System.out.println("The Door Opens...");
+            System.out.println("You enter the room and a monster jumps out at you.");
+            System.out.println("You see that its a " + mOne.getName() + " and you get ready to fight.");
+            playerHistory.add("Fighting " + mOne.getName());
+
+            fight(player, mOne, input);
+            break;
+
+          }
+        }
+
       } else {
         System.out.println("The Door Opens...");
         System.out.println("You enter the room and a monster jumps out at you.");
@@ -180,10 +233,10 @@ public class Main {
   }
 
   // Weapons Choices
-  private static void weaponChoices(String playerName) {
+  private static void weaponChoices(Player player) {
     System.out.println("");
-    System.out.println(ConsoleColors.BB + "Here are your weapon choices, " + playerName
-        + "(Every weapon has 2 attacks: One normal and one special):");
+    System.out.println(ConsoleColors.BB + "Here are your weapon choices, " + player.getName()
+        + ":");
 
     TimeSleep(250);
 
